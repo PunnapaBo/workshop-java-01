@@ -8,18 +8,6 @@ class CircularBufferTest {
     CircularBuffer circularBuffer = new CircularBuffer();
 
     @Test
-    public void read_dat_from_empty_buffer_then_throw_exception(){
-        circularBuffer.create();
-        Exception exception = assertThrows(EmptyBufferException.class, ()->{
-            circularBuffer.read();
-        });
-
-        assertNotNull(exception);
-        assertEquals("Empty Buffer",exception.getMessage());
-
-    }
-
-    @Test
     public void read_buffer_2_round() throws Exception {
         circularBuffer.create(2);
         circularBuffer.write("A");
@@ -30,17 +18,6 @@ class CircularBufferTest {
         assertEquals("A", circularBuffer.read());
         assertEquals("B", circularBuffer.read());
 
-    }
-	@Test
-    public void write_A_B_and_reader_A_B_then_buffer_is_empty() throws Exception {
-        circularBuffer.create();
-		circularBuffer.write("A");
-		circularBuffer.write("B");
-		circularBuffer.read();
-		circularBuffer.read();
-
-        assertTrue(circularBuffer.isEmpty());
-        
     }
 	@Test
     public void write_A_B_should_read_A_B() throws Exception {
@@ -73,5 +50,42 @@ class CircularBufferTest {
     public void after_created_should_be_empty(){
         boolean isEmpty = circularBuffer.isEmpty();
         assertTrue(isEmpty);
+    }
+    @Test
+    public void read_data_from_empty_buffer_then_throw_exception(){
+        circularBuffer.create();
+        Exception exception = assertThrows(EmptyBufferException.class, ()->{
+            circularBuffer.read();
+        });
+
+        assertNotNull(exception);
+        assertEquals("Empty Buffer",exception.getMessage());
+
+    }
+    @Test
+    public void check_full_buffer_then_true(){
+        circularBuffer.create(2);
+        circularBuffer.write("A");
+        circularBuffer.write("B");
+        assertTrue(circularBuffer.isFull());
+    }
+    @Test
+    public void check_full_buffer_then_false(){
+        circularBuffer.create(2);
+        assertFalse(circularBuffer.isFull());
+    }
+    @Test
+    public void write_data_to_full_buffer_then_throw_exception(){
+        circularBuffer.create(2);
+
+        Exception exception = assertThrows(FullBufferException.class, ()->{
+            circularBuffer.write("A");
+            circularBuffer.write("B");
+            circularBuffer.write("C");
+        });
+
+        assertNotNull(exception);
+        assertEquals("Full Buffer",exception.getMessage());
+
     }
 }

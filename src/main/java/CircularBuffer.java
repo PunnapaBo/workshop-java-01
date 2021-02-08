@@ -5,7 +5,6 @@ public class CircularBuffer {
 
     public static final int DEFAULT_SIZE = 10;
     private String[] array;
-//    private int capacity = 0;
     private int size = 0;
     private int writePointer = 0;
     private int readPointer = 0;
@@ -20,10 +19,9 @@ public class CircularBuffer {
         array = new String[size];
     }
 
-    public void write(String element) throws Exception {
-        if(writePointer == size){
-            writePointer = 0;
-            throw new Exception("Full Buffer");
+    public void write(String element) {
+        if(isFull()){
+            throw new FullBufferException("Full Buffer");
         }
         array[writePointer++] = element;
 
@@ -46,11 +44,11 @@ public class CircularBuffer {
 
 
     public boolean isEmpty() {
-        return writePointer-readPointer == 0;
+        return writePointer == 0;
 
     }
     public boolean isFull() {
-        return writePointer == readPointer;
+        return writePointer == size;
 
     }
 }
