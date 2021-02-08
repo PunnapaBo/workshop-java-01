@@ -7,6 +7,27 @@ class CircularBufferTest {
 
     CircularBuffer circularBuffer = new CircularBuffer();
 
+	@Test
+    public void write_A_B_and_reader_A_B_then_buffer_is_empty() throws Exception {
+        circularBuffer.create();
+		circularBuffer.write("A");
+		circularBuffer.write("B");
+		circularBuffer.read();
+		circularBuffer.read();
+
+        assertTrue(circularBuffer.isEmpty());
+        
+    }
+	@Test
+    public void write_A_B_should_read_A_B() throws Exception {
+        circularBuffer.create();
+		circularBuffer.write("A");
+		circularBuffer.write("B");
+		    
+
+        assertEquals("A",circularBuffer.read());
+        assertEquals("B",circularBuffer.read());
+    }
     @Test
     @DisplayName("buffer size must be 10")
     public void create_buffer_with_default_size(){
@@ -22,5 +43,11 @@ class CircularBufferTest {
         int size = circularBuffer.getSize();
 
         assertEquals(5,size);
+    }
+    @Test
+    @DisplayName("after buffer is created then buffer should be empty")
+    public void after_created_should_be_empty(){
+        boolean isEmpty = circularBuffer.isEmpty();
+        assertTrue(isEmpty);
     }
 }
