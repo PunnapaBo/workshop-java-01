@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class CircularBuffer {
 
 
@@ -7,6 +9,7 @@ public class CircularBuffer {
     private int size = 0;
     private int writePointer = 0;
     private int readPointer = 0;
+
 
 
     public void create(){
@@ -19,14 +22,20 @@ public class CircularBuffer {
 
     public void write(String element) throws Exception {
         if(writePointer == size){
+            writePointer = 0;
             throw new Exception("Full Buffer");
         }
         array[writePointer++] = element;
+
     }
     public String read() throws Exception {
         if(getSize() == 0){
             throw new Exception("Empty Buffer");
         }
+        if(readPointer == size){
+            readPointer = 0;
+        }
+	
 
         return array[readPointer++];
     }
@@ -36,4 +45,8 @@ public class CircularBuffer {
     }
 
 
+    public boolean isEmpty() {
+        return writePointer-readPointer == 0;
+
+    }
 }
