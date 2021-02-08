@@ -49,4 +49,8 @@ public class CircularBuffer {
         return writePointer-readPointer == 0;
 
     }
+    public boolean isFull() {
+        return writePointer == readPointer;
+
+    }
 }
