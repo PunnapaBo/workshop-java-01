@@ -7,6 +7,18 @@ class CircularBufferTest {
 
     CircularBuffer circularBuffer = new CircularBuffer();
 
+    @Test
+    public void read_buffer_2_round() throws Exception {
+        circularBuffer.create(2);
+        circularBuffer.write("A");
+        circularBuffer.write("B");
+
+        assertEquals("A", circularBuffer.read());
+        assertEquals("B", circularBuffer.read());
+        assertEquals("A", circularBuffer.read());
+        assertEquals("B", circularBuffer.read());
+
+    }
 	@Test
     public void write_A_B_and_reader_A_B_then_buffer_is_empty() throws Exception {
         circularBuffer.create();
