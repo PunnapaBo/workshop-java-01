@@ -8,6 +8,18 @@ class CircularBufferTest {
     CircularBuffer circularBuffer = new CircularBuffer();
 
     @Test
+    public void read_dat_from_empty_buffer_then_throw_exception(){
+        circularBuffer.create();
+        Exception exception = assertThrows(EmptyBufferException.class, ()->{
+            circularBuffer.read();
+        });
+
+        assertNotNull(exception);
+        assertEquals("Empty Buffer",exception.getMessage());
+
+    }
+
+    @Test
     public void read_buffer_2_round() throws Exception {
         circularBuffer.create(2);
         circularBuffer.write("A");

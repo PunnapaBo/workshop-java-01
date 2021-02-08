@@ -28,9 +28,9 @@ public class CircularBuffer {
         array[writePointer++] = element;
 
     }
-    public String read() throws Exception {
-        if(getSize() == 0){
-            throw new Exception("Empty Buffer");
+    public String read() {
+        if(isEmpty()){
+            throw new EmptyBufferException("Empty Buffer");
         }
         if(readPointer == size){
             readPointer = 0;
